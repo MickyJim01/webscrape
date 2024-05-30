@@ -1,6 +1,7 @@
 import mechanicalsoup
 from bs4 import BeautifulSoup as bsoup
 import json
+import decode as dc
 
 # Load my username and password into variables
 with open("login.json", "r") as login:
@@ -37,4 +38,8 @@ briefing = page.find("pre").get_text()
 breakdown = briefing.split()
 # print(breakdown)
 metar = breakdown[breakdown.index("METAR") : breakdown.index("ATIS")]
-print(" ".join(metar))
+complete = " ".join(metar)
+print(complete)
+print(dc.plain_text(complete))
+print(dc.translate(complete))
+print(dc.re_trans(complete))
