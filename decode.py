@@ -1,6 +1,6 @@
 import re
 from icecream import ic
-from clouds import dictionary as dc
+from dictionary import dictionary as dc
 
 
 def plain_text(taf):
@@ -12,10 +12,9 @@ def plain_text(taf):
 
 def translate(briefing):
     dict = {
-        "YPDN": "Darwin",
-        "METAR": "Meteorological Aerodrome Report",
-        "RMK": "Remarks:",
-        "FEW": "Few Clouds at ",
+        "YPDN": "\nDarwin",
+        "METAR": "\nMeteorological Aerodrome Report",
+        "RMK": "\n---Remarks:",
     }
 
     brief_words = briefing.split()
@@ -26,10 +25,12 @@ def translate(briefing):
     return " ".join(brief_words)
 
 
+# Translate the breifing using regular expressions.
+# this function only translates cloud amounts using the 'cloud amounts' dictionary
 def re_trans(briefing):
     dict = dc.cld_amts
-    ic(dict)
+    dict
 
-    for k, v in ic(dict.items()):
-        briefing = ic(re.sub(rf"(\s){k}(\d\d\d\s)", rf"\1{v}\2", briefing))
+    for k, v in dict.items():
+        briefing = re.sub(rf"(\s){k}(\d\d\d\s)", rf"\1{v}\2", briefing)
     return briefing
